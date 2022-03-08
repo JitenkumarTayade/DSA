@@ -27,7 +27,7 @@
                     break;
                 }
                 
-                                  //if 2nd array's elemt greater 1st array then increse only 1st arr itr.                        
+                                                       //if 2nd array's elemt greater 1st array then increse only 1st arr itr.                        
                 if(nums1[i]<nums2[j]){                  
                     break;
                 }
@@ -37,4 +37,18 @@
     }
     
     .
-    //optimized-
+    //optimized- O(n)- Using Set
+        vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> ans;                                                // Initialize an empty vector to hold the result
+        set s = set(nums1.begin(), nums1.end());                        // Storing elements of first array into a set, so we can get rid of duplicacy
+        
+        for(int x: nums2)                                               // Iterate through the elements of second array
+		{
+            if(s.find(x) != s.end())                                    // Check if the element of second array is present in the set created from first array
+			{
+                ans.push_back(x);                                       // push matched element into result
+                s.erase(x);                                             // remove element from the set, so we will not face any duplicacy in the next iteration
+            }
+        }
+        return ans;
+    }

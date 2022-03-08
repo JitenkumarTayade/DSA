@@ -1,0 +1,23 @@
+    //brutforce - O(n^2)
+    bool uniqueOccurrences(vector<int>& arr) {
+    bool isunique=1;               
+        vector<int>occurance;                            //for storing count/frequancy of each element
+    set<int>s(arr.begin(),arr.end());                    //for storing unique elemts 
+        for(auto i:s){                                   //copy values of set's' to i by iteration
+            int c;                               
+            c=count(arr.begin(),arr.end(),i);            //count frequency of each elemt and stored them in 'c' variable
+            occurance.push_back(c);                      //push that freuqncy in occurance vector
+        }
+        
+                                                         //traverse that occurance vector(stores frequeny of rach elemts)
+        for(int i=0;i<occurance.size()-1;i++){
+            for(int j=i+1;j<occurance.size();j++){
+                if(occurance[i]==occurance[j]){
+                   isunique=0;
+                }
+            }
+        }
+        return isunique;
+    }
+    
+    //Optimized

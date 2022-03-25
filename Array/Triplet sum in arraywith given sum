@@ -1,0 +1,77 @@
+//brutfoece o(n^3) , 0(1)
+vector<vector<int>> findTriplets(vector<int>arr, int n, int K) {
+	
+   set<vector<int>>visited;                                       //for track of distict triplets
+   vector<vector<int>>s;                                          //for answer
+    sort(arr.begin(),arr.end());                                  //sort given array
+    for(int i=0;i<n-2;i++){                                         
+        for(int j=i+1;j<n-1;j++){
+            for(int k=j+1;k<n;k++){
+                if(arr[i]+arr[j]+arr[k]==K){   
+                    vector<int>ans;                               //storing that == sum triplet
+                    ans.push_back(arr[i]);
+                    ans.push_back(arr[j]);
+                    ans.push_back(arr[k]);
+                  
+                
+                 if (visited.find(ans) == visited.end()) {        //finds that triplet in created set , if its not present then store it in set
+                        s.push_back(ans);                         //unique triplets strore in answer 's' vector
+                        visited.insert(ans);                       //inserting same triplet in visited set for no dublication in next time 
+                    }
+                }
+            }
+        }
+    }
+    return s;
+}
+
+
+//optimized o(n^2) , o(1)
+
+#include<set>
+vector<vector<int>> findTriplets(vector<int>arr, int n, int K) {
+sort(arr.begin(),arr.end());
+    vector<vector<int>>ans;
+    for(int i=0;i<n;i++){
+        int j=i+1;                 //pointing to 2nd element
+        int k=n-1;                //pointing to last
+        int sum=K-arr[i];          
+        while(j<k){
+            if(arr[j]+arr[k]==sum){
+                vector<int>temp;
+                temp.push_back(arr[i]);
+                temp.push_back(arr[j]);
+                temp.push_back(arr[k]);
+                ans.push_back(temp);
+                
+                  // Incrementing front pointer until we reach a different number.
+             
+                    j++;
+                while(arr[j] == arr[j-1]) {
+                    j++;
+                }
+            }
+            else if(arr[j]+arr[k]>sum){
+                k--;
+                //
+                while(arr[k]==arr[k+1]){
+                    k--;
+                }
+            }
+            else if(arr[j]+arr[k]<sum){
+                     j++;
+                //
+                while(arr[j] == arr[j-1]) {
+                    j++;
+                }
+            }
+        }
+    
+  // Ensuring that we don't encounter duplicate values for arr[i].
+    
+        while(i + 1 < n && arr[i] == arr[i + 1]) {
+            i++;
+        }
+    }
+    return ans;
+}
